@@ -12,7 +12,7 @@ public class Hero : MonoBehaviour
     public float turnRate = 500;
     
     private float graceAngle = 30f;
-    private float closeDistanceThreshold = 0.1f;
+    private float closeDistanceThreshold = 0.05f;
     private float turnThreshold = 30f;
     
     private NavMeshAgent navMeshAgent;
@@ -25,6 +25,7 @@ public class Hero : MonoBehaviour
     
     public void MoveTo(Vector3 destination)
     {
+        destinationQueue.Clear();
         destinationQueue.Enqueue(destination);
 
         if (!isWalking)
@@ -95,7 +96,8 @@ public class Hero : MonoBehaviour
 
         if (navMeshAgent.remainingDistance <= closeDistanceThreshold)
         {
-            transform.position = destination;
+            Vector3 destination_pos = new Vector3(destination.x, transform.position.y, destination.z);
+            transform.position = destination_pos;
         }
         
         navMeshAgent.isStopped = true;

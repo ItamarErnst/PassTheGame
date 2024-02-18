@@ -28,12 +28,9 @@ public class PlayerController : MonoBehaviour
         {
             Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
-            Debug.Log("CLICK");
 
             if (Physics.Raycast(ray, out hit, Mathf.Infinity, groundLayer))
             {
-                Debug.Log("HIT GROUND");
-
                 // Move the hero to the clicked position
                 hero.MoveTo(hit.point);
             }
