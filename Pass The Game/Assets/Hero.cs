@@ -17,10 +17,26 @@ public class Hero : MonoBehaviour
     
     private NavMeshAgent navMeshAgent;
 
+    public GameObject target;
+
+    public float attack_range = 5f;
+
     void Start()
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
         navMeshAgent.speed = speed;
+    }
+
+    public void SetTarget(GameObject target)
+    {
+        this.target = target;
+        AttackWalk();
+    }
+
+    public void OnClickGround(Vector3 destination)
+    {
+        target = null;
+        MoveTo(destination);
     }
     
     public void MoveTo(Vector3 destination)
@@ -102,6 +118,35 @@ public class Hero : MonoBehaviour
         
         navMeshAgent.isStopped = true;
     }
+
+    private void AttackWalk()
+    {
+        StartCoroutine(AttackTarget());
+    }
+
+    private IEnumerator AttackTarget()
+    {
+        while (target != null)
+        {
+            if (Vector3.Distance(transform.position, target.transform.position) <= attack_range)
+            {
+                Debug.LogError("ATTACK");
+                
+                Rotate(target.transform.position);
+                navMeshAgent.isStopped = true;
+                isWalking = false;
+            }
+            else
+            {
+                if (!isWalking)
+                {
+                    MoveTo(target.transform.position);
+                }
+            }
+            
+            yield return new WaitForFixedUpdate();
+        }
+    }
     
     private bool IsFacingTarget(Vector3 targetPosition)
     {
@@ -114,5 +159,13 @@ public class Hero : MonoBehaviour
     public void UseSpellSlot()
     {
         // Add your spell logic here
+    }
+
+    private void Rotate(Vector3 destination)
+    {
+        Vector3 targetDirection = new Vector3(destination.x - transform.position.x, 0f, destination.z - transform.position.z).normalized;
+        Quaternion targetRotation = Quaternion.LookRotation(targetDirection);
+        
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, turnRate * Time.deltaTime);
     }
 }

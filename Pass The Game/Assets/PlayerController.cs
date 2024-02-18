@@ -6,6 +6,7 @@ public class PlayerController : MonoBehaviour
     private Camera mainCamera;
     public GameObject camera_holder;
     public LayerMask groundLayer;
+    public LayerMask enemyLayer;
     public Hero hero;
     
     private bool followHero = true;
@@ -29,10 +30,16 @@ public class PlayerController : MonoBehaviour
             Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
 
+            if (Physics.Raycast(ray, out hit, Mathf.Infinity, enemyLayer))
+            {
+                hero.SetTarget(hit.transform.gameObject);
+                return;
+            }
+            
             if (Physics.Raycast(ray, out hit, Mathf.Infinity, groundLayer))
             {
                 // Move the hero to the clicked position
-                hero.MoveTo(hit.point);
+                hero.OnClickGround(hit.point);
             }
         }
     }
