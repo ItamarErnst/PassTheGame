@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
     public Hero hero;
     
     private bool followHero = true;
+    public Pointer pointer;
     
     void Start()
     {
@@ -39,6 +40,8 @@ public class PlayerController : MonoBehaviour
             if (Physics.Raycast(ray, out hit, Mathf.Infinity, groundLayer))
             {
                 // Move the hero to the clicked position
+                pointer.transform.position = hit.point;
+                pointer.OnPoint();
                 hero.OnClickGround(hit.point);
             }
         }
