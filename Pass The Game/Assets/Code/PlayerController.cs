@@ -4,13 +4,19 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     private Camera mainCamera;
-    public GameObject camera_holder;
     public LayerMask groundLayer;
     public LayerMask enemyLayer;
-    public Hero hero;
     
+    public HpDisplay hp_display;
+    public ManaDisplay mana_display;
+
+    public GameObject camera_holder;
     private bool followHero = true;
     public Pointer pointer;
+    
+    public Hero hero;
+
+    public Spell active_spell;
     
     void Start()
     {
@@ -33,26 +39,58 @@ public class PlayerController : MonoBehaviour
 
             if (Physics.Raycast(ray, out hit, Mathf.Infinity, enemyLayer))
             {
-                hero.SetTarget(hit.transform.gameObject);
-                return;
+                HandleEnemyClick(hit);
             }
-            
-            if (Physics.Raycast(ray, out hit, Mathf.Infinity, groundLayer))
+            else if (Physics.Raycast(ray, out hit, Mathf.Infinity, groundLayer))
             {
-                // Move the hero to the clicked position
-                pointer.transform.position = hit.point;
-                pointer.OnPoint();
-                hero.OnClickGround(hit.point);
+                HandleGroundClick(hit.point);
             }
         }
     }
 
+    private void HandleEnemyClick(RaycastHit hit)
+    {
+        if (active_spell.type != SpellType.None)
+        {
+            UseActiveSpell(hit.point);
+        }
+        else
+        {
+            hero.SetTarget(hit.transform.gameObject);
+        }
+    }
+
+    private void HandleGroundClick(Vector3 targetPoint)
+    {
+        if (active_spell.type != SpellType.None)
+        {
+            UseActiveSpell(targetPoint);
+        }
+        else
+        {
+            HandleGroundClickActions(targetPoint);
+        }
+    }
+
+    private void HandleGroundClickActions(Vector3 targetPoint)
+    {
+        pointer.transform.position = targetPoint;
+        pointer.OnPoint();
+        hero.OnClickGround(targetPoint);
+    }
+    
     private void SkillInputsCheck()
     {
         if (Input.GetKeyDown(KeyCode.Q))
         {
             Debug.Log("Q pressed");
-            hero.UseSpellSlot();
+
+            if(mana_display.HasEnough(hero.GetSpell().mana))
+            {
+                Debug.Log("Has Mana");
+
+                active_spell = hero.GetSpell();
+            }
         }
 
         if (Input.GetKeyDown(KeyCode.W))
@@ -112,5 +150,13 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    
+    private void UseActiveSpell(Vector3 pos)
+    {
+        mana_display.Remove(active_spell.mana);
+
+        ParticleSystem spell = Instantiate(active_spell.pr);
+        spell.transform.position = pos;
+
+        active_spell = new Spell();
+    }
 }

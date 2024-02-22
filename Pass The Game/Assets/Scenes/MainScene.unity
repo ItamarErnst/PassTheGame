@@ -139,6 +139,22 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1412429408810718717, guid: b98403559a743b647a96ba47cc786369, type: 3}
+      propertyPath: spell_slot.pr
+      value: 
+      objectReference: {fileID: 3844163362228735347, guid: 2e621a0ebb6ce6847aacf442f1b48d85, type: 3}
+    - target: {fileID: 1412429408810718717, guid: b98403559a743b647a96ba47cc786369, type: 3}
+      propertyPath: spell_slot.mana
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1412429408810718717, guid: b98403559a743b647a96ba47cc786369, type: 3}
+      propertyPath: spell_slot.name
+      value: FireBall
+      objectReference: {fileID: 0}
+    - target: {fileID: 1412429408810718717, guid: b98403559a743b647a96ba47cc786369, type: 3}
+      propertyPath: spell_slot.type
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1799619165892750592, guid: b98403559a743b647a96ba47cc786369, type: 3}
       propertyPath: m_LocalPosition.y
       value: -0.019
@@ -1234,6 +1250,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 792727956}
+  - component: {fileID: 792727957}
   m_Layer: 5
   m_Name: HPHolder
   m_TagString: Untagged
@@ -1264,6 +1281,23 @@ RectTransform:
   m_AnchoredPosition: {x: -870, y: -470}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &792727957
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 792727955}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc4c64f3dc063e4428c9d20b78068b92, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fill_display:
+  - {fileID: 1052441587}
+  - {fileID: 2129895611}
+  - {fileID: 880453963}
+  current: 25
 --- !u!1 &801871627
 GameObject:
   m_ObjectHideFlags: 0
@@ -1447,6 +1481,10 @@ MonoBehaviour:
   turnRate: 300
   target: {fileID: 0}
   attack_range: 5
+  spell_slot:
+    type: 0
+    mana: 0
+    pr: {fileID: 0}
 --- !u!195 &866187462
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -2039,6 +2077,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1083192221}
+  - component: {fileID: 1083192222}
   m_Layer: 5
   m_Name: ManaHolder
   m_TagString: Untagged
@@ -2069,6 +2108,23 @@ RectTransform:
   m_AnchoredPosition: {x: -234, y: 70}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1083192222
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1083192220}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f15ebfc5ac8d2d746a7f1906f8dd02c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fill_display:
+  - {fileID: 1599185144}
+  - {fileID: 1736639065}
+  - {fileID: 179210934}
+  current: 10
 --- !u!1 &1091743155
 GameObject:
   m_ObjectHideFlags: 0
@@ -2348,15 +2404,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f8191a2d1a24650962f7cccb07b0d1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  camera_holder: {fileID: 1524757972}
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
   enemyLayer:
     serializedVersion: 2
     m_Bits: 128
-  hero: {fileID: 1640836401}
+  hp_display: {fileID: 792727957}
+  mana_display: {fileID: 1083192222}
+  camera_holder: {fileID: 1524757972}
   pointer: {fileID: 8907251004844052975}
+  hero: {fileID: 1640836401}
+  active_spell:
+    type: 0
+    mana: 0
+    pr: {fileID: 0}
 --- !u!4 &1267652409
 Transform:
   m_ObjectHideFlags: 0
@@ -2570,7 +2632,7 @@ MonoBehaviour:
   m_StreamingVersion: 20170927
   m_Priority: 10
   m_StandbyUpdate: 0
-  m_LookAt: {fileID: 1640836403}
+  m_LookAt: {fileID: 0}
   m_Follow: {fileID: 0}
   m_Lens:
     FieldOfView: 48.43
@@ -2923,11 +2985,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0559e85d905f43339b74bcb74d376e9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!4 &1640836403 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 7893206948495701572, guid: b98403559a743b647a96ba47cc786369, type: 3}
-  m_PrefabInstance: {fileID: 40789214}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1727744522
 GameObject:
   m_ObjectHideFlags: 0

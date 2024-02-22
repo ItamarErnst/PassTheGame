@@ -21,6 +21,8 @@ public class Hero : MonoBehaviour
 
     public float attack_range = 5f;
 
+    public Spell spell_slot;
+
     void Start()
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
@@ -167,5 +169,10 @@ public class Hero : MonoBehaviour
         Quaternion targetRotation = Quaternion.LookRotation(targetDirection);
         
         transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, turnRate * Time.deltaTime);
+    }
+
+    public Spell GetSpell()
+    {
+        return spell_slot;
     }
 }
