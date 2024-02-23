@@ -18,7 +18,8 @@ public class PlayerController : MonoBehaviour
     public MovementController movementController;
     public AttackController attackController;
     public SpellController spellController;
-
+    public ResourceManager resourceManager;
+    
     public Transform target;
     public Vector3 destination;
 
@@ -33,7 +34,7 @@ public class PlayerController : MonoBehaviour
 
         PlayerEvents.OnGroundClick.AddListener(MoveToDestination);
         PlayerEvents.OnEnemyClick.AddListener(SetEnemyTarget);
-        PlayerEvents.OnSpellSelect.AddListener(OnSelectSpell);
+        PlayerEvents.OnSpellSelected.AddListener(SelectSpell);
         PlayerEvents.OnReachedDestination.AddListener(OnReachedDestination);
     }
 
@@ -50,11 +51,16 @@ public class PlayerController : MonoBehaviour
         {
             current_action = ActionType.None;
             movementController.StopMoving();
+            movementController.Rotate(destination);
+            
+            resourceManager.RemoveMana(spellController.GetSelectedSpell().mana);
             spellController.CastSelectedSpell(destination);
         }
         else if (current_action == ActionType.AutoAttack && distanceToDestination <= attackController.GetAttackRange())
         {
             movementController.StopMoving();
+            movementController.Rotate(destination);
+            
             attackController.PerformAttack();
         }
         else if(current_action != ActionType.None && current_action != ActionType.WaitingForSpellTarget)
@@ -96,9 +102,12 @@ public class PlayerController : MonoBehaviour
         SetTarget(enemy);
     }
     
-    private void OnSelectSpell(int spell)
+    private void SelectSpell(Spell spell)
     {
-        current_action = ActionType.WaitingForSpellTarget;
+        if (resourceManager.HasManaFor(spell.mana))
+        {
+            current_action = ActionType.WaitingForSpellTarget;
+        }
     }
     
     private void OnReachedDestination()

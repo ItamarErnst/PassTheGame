@@ -23,6 +23,7 @@ public class SpellController : MonoBehaviour
     private void SelectSpell(int spellIndex)
     {
         selectedSpell = spellIndex;
+        PlayerEvents.OnSpellSelected.Invoke(GetSelectedSpell());
     }
     
     private void ClearSelection()
@@ -40,13 +41,13 @@ public class SpellController : MonoBehaviour
         return fire_ball;
     }
 
-    public bool HasSpellSelected()
-    {
-        return selectedSpell != -1;
-    }
-
     public float GetCastRange()
     {
         return GetSelectedSpell().cast_range;
+    }
+
+    public int GetSpellMana()
+    {
+        return GetSelectedSpell().mana;
     }
 }

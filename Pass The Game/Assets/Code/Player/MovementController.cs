@@ -104,7 +104,7 @@ public class MovementController : MonoBehaviour
             yield return null;
         }
 
-        if (navMeshAgent.remainingDistance <= closeDistanceThreshold)
+        if (navMeshAgent.remainingDistance <= closeDistanceThreshold && isWalking)
         {
             Vector3 destination_pos = new Vector3(destination.x, transform.position.y, destination.z);
             transform.position = destination_pos;
@@ -123,7 +123,7 @@ public class MovementController : MonoBehaviour
         return Mathf.Abs(angle) <= graceAngle;
     }
 
-    private void Rotate(Vector3 targetDirection)
+    public void Rotate(Vector3 targetDirection)
     {
         Quaternion targetRotation = Quaternion.LookRotation(targetDirection);
         transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, turnRate * Time.deltaTime);
