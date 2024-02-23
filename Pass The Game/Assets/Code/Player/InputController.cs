@@ -41,22 +41,22 @@ public class InputController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            PlayerEvents.on_player_click_spell_slot.Invoke(KeyCode.Q);
+            PlayerEvents.OnSpellSelect.Invoke(1);
         }
 
         if (Input.GetKeyDown(KeyCode.W))
         {
-            PlayerEvents.on_player_click_spell_slot.Invoke(KeyCode.W);
+            PlayerEvents.OnSpellSelect.Invoke(2);
         }
 
         if (Input.GetKeyDown(KeyCode.E))
         {
-            PlayerEvents.on_player_click_spell_slot.Invoke(KeyCode.E);
+            PlayerEvents.OnSpellSelect.Invoke(3);
         }
 
         if (Input.GetKeyDown(KeyCode.R))
         {
-            PlayerEvents.on_player_click_spell_slot.Invoke(KeyCode.R);
+            PlayerEvents.OnSpellSelect.Invoke(4);
         }
     }
     

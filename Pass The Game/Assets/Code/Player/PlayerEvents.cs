@@ -6,6 +6,7 @@ public static class PlayerEvents
     public static UnityEvent<Vector3> OnGroundClick = new();
     public static UnityEvent<Transform> OnEnemyClick = new();
     
-    public static UnityEvent<KeyCode> on_player_click_spell_slot = new();
+    public static UnityEvent<int> OnSpellSelect = new();
+    public static UnityEvent OnReachedDestination = new();
 
 }

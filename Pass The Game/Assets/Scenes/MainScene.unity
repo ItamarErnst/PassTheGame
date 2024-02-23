@@ -2504,6 +2504,7 @@ GameObject:
   - component: {fileID: 1267652409}
   - component: {fileID: 1267652408}
   - component: {fileID: 1267652410}
+  - component: {fileID: 1267652411}
   m_Layer: 0
   m_Name: PlayerController
   m_TagString: Untagged
@@ -2530,20 +2531,27 @@ MonoBehaviour:
       type: 0
       mana: 0
       pr: {fileID: 0}
+      cast_range: 5
     spell_slot_w:
       type: 0
       mana: 0
       pr: {fileID: 0}
+      cast_range: 5
     spell_slot_e:
       type: 0
       mana: 0
       pr: {fileID: 0}
+      cast_range: 5
     spell_slot_r:
       type: 0
       mana: 0
       pr: {fileID: 0}
+      cast_range: 5
   movementController: {fileID: 1640836404}
   attackController: {fileID: 1267652410}
+  spellController: {fileID: 1267652411}
+  target: {fileID: 0}
+  destination: {x: 0, y: 0, z: 0}
 --- !u!4 &1267652409
 Transform:
   m_ObjectHideFlags: 0
@@ -2573,6 +2581,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   turnRate: 500
   attackRange: 5
+--- !u!114 &1267652411
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1267652407}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67273b67a3694c5c8ee62c3ab0573ef7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spell:
+    type: 0
+    mana: 0
+    pr: {fileID: 0}
+    cast_range: 5
+  fire_ball:
+    type: 1
+    mana: 2
+    pr: {fileID: 3844163362228735347, guid: 2e621a0ebb6ce6847aacf442f1b48d85, type: 3}
+    cast_range: 10
 --- !u!1 &1334339494
 GameObject:
   m_ObjectHideFlags: 0

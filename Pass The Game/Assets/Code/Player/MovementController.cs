@@ -108,6 +108,8 @@ public class MovementController : MonoBehaviour
         {
             Vector3 destination_pos = new Vector3(destination.x, transform.position.y, destination.z);
             transform.position = destination_pos;
+            
+            PlayerEvents.OnReachedDestination.Invoke();
         }
 
         navMeshAgent.isStopped = true;
@@ -127,9 +129,9 @@ public class MovementController : MonoBehaviour
         transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, turnRate * Time.deltaTime);
     }
 
-    public float GetDistanceFrom(Transform target)
+    public float GetDistanceFrom(Vector3 target)
     {
-        return Vector3.Distance(transform.position, target.position);
+        return Vector3.Distance(transform.position, target);
     }
 
     public bool IsWalking()
