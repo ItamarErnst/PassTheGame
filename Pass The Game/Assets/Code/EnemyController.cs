@@ -5,16 +5,16 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
-    public Hero hero;
+    public MovementController movement_controller;
     public List<GameObject> patrol_list;
     private IEnumerator Start()
     {
         yield return new WaitForSeconds(0.2f);
         
         int count = 0;
-        while (hero)
+        while (movement_controller)
         {
-            hero.OnClickGround(patrol_list[count++].transform.position);
+            movement_controller.MoveTo(patrol_list[count++].transform.position);
             
             yield return new WaitForSeconds(8f);
             
