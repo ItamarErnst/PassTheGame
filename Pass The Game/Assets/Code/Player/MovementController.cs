@@ -16,7 +16,7 @@ public class MovementController : MonoBehaviour
     private float closeDistanceThreshold = 0.05f;
     private float turnThreshold = 30f;
 
-    void Start()
+    void Awake()
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
     }
