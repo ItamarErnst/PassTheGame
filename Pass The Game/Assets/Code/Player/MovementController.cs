@@ -21,7 +21,7 @@ public class MovementController : MonoBehaviour
         navMeshAgent = GetComponent<NavMeshAgent>();
     }
 
-    public void SetHeroSpeed(float speed)
+    public void SetMovementSpeed(float speed)
     {
         navMeshAgent.speed = speed;
     }
@@ -137,5 +137,10 @@ public class MovementController : MonoBehaviour
     public bool IsWalking()
     {
         return isWalking;
+    }
+
+    public Vector3 GetFacingDir()
+    {
+        return transform.forward;
     }
 }

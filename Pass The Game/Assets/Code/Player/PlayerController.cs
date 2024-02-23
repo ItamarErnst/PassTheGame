@@ -30,7 +30,7 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
-        movementController.SetHeroSpeed(hero.speed);
+        movementController.SetMovementSpeed(hero.speed);
 
         PlayerEvents.OnGroundClick.AddListener(MoveToDestination);
         PlayerEvents.OnEnemyClick.AddListener(SetEnemyTarget);
