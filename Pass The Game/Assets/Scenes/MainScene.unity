@@ -752,6 +752,59 @@ Transform:
   m_Children: []
   m_Father: {fileID: 774679615}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &369170579
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 369170581}
+  - component: {fileID: 369170580}
+  m_Layer: 0
+  m_Name: SpellDataProvider
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &369170580
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 369170579}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb822fa60ff148ef8a72da86c17e84f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spell_list:
+  - type: 0
+    mana: 0
+    pr: {fileID: 0}
+    cast_range: 5
+  - type: 1
+    mana: 2
+    pr: {fileID: 3844163362228735347, guid: 2e621a0ebb6ce6847aacf442f1b48d85, type: 3}
+    cast_range: 7.5
+--- !u!4 &369170581
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 369170579}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &421485624
 GameObject:
   m_ObjectHideFlags: 0
@@ -2238,6 +2291,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player_hero: {fileID: 1640836403}
   camera_holder: {fileID: 1524757972}
+  edgeScrollingSpeed: 10
+  edgeScrollingThreshold: 125
 --- !u!4 &1049177363
 Transform:
   m_ObjectHideFlags: 0
@@ -2677,26 +2732,10 @@ MonoBehaviour:
   hero:
     speed: 5
     attack_range: 5
-    spell_slot_q:
-      type: 0
-      mana: 0
-      pr: {fileID: 0}
-      cast_range: 5
-    spell_slot_w:
-      type: 0
-      mana: 0
-      pr: {fileID: 0}
-      cast_range: 5
-    spell_slot_e:
-      type: 0
-      mana: 0
-      pr: {fileID: 0}
-      cast_range: 5
-    spell_slot_r:
-      type: 0
-      mana: 0
-      pr: {fileID: 0}
-      cast_range: 5
+    spell_slot_q: 1
+    spell_slot_w: 1
+    spell_slot_e: 1
+    spell_slot_r: 1
   current_action: 0
   movementController: {fileID: 1640836404}
   attackController: {fileID: 1267652410}
@@ -2745,17 +2784,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67273b67a3694c5c8ee62c3ab0573ef7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spell:
-    type: 0
-    mana: 0
-    pr: {fileID: 0}
-    cast_range: 5
-  fire_ball:
-    type: 1
-    mana: 2
-    pr: {fileID: 3844163362228735347, guid: 2e621a0ebb6ce6847aacf442f1b48d85, type: 3}
-    cast_range: 10
-  selectedSpell: -1
+  selectedSpellType: 0
 --- !u!4 &1273200808 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7141194175416964071, guid: 4956dea00cb8d2f4e9f81b5a98547647, type: 3}
@@ -10852,3 +10881,4 @@ SceneRoots:
   - {fileID: 657663359}
   - {fileID: 1400358276}
   - {fileID: 1242497810}
+  - {fileID: 369170581}

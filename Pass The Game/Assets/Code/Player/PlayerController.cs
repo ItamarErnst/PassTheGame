@@ -26,6 +26,8 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         destination = movementController.transform.position;
+        
+        spellController.SetHero(hero);
     }
 
     void Start()
@@ -104,6 +106,8 @@ public class PlayerController : MonoBehaviour
     
     private void SelectSpell(Spell spell)
     {
+        if(spell.type == SpellType.None) return;
+        
         if (resourceManager.HasManaFor(spell.mana))
         {
             current_action = ActionType.WaitingForSpellTarget;

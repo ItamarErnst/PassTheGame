@@ -1,15 +1,26 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class SpellController : MonoBehaviour
 {
-    public Spell spell;
-    public Spell fire_ball;
+    private Hero hero;
+    private SpellDataProvider spell_data_provider;
     
-    public int selectedSpell = -1;
+    public SpellType selectedSpellType = SpellType.None;
+
+    private void Awake()
+    {
+        spell_data_provider = SpellDataProvider.GetObject();
+    }
 
     void Start()
     {
         PlayerEvents.OnSpellSelect.AddListener(SelectSpell);
+    }
+
+    public void SetHero(Hero hero)
+    {
+        this.hero = hero;
     }
 
     public void CastSelectedSpell(Vector3 pos)
@@ -20,25 +31,20 @@ public class SpellController : MonoBehaviour
         ClearSelection();
     }
     
-    private void SelectSpell(int spellIndex)
+    private void SelectSpell(int ix)
     {
-        selectedSpell = spellIndex;
+        selectedSpellType = hero.GetSpellType(ix);
         PlayerEvents.OnSpellSelected.Invoke(GetSelectedSpell());
     }
     
     private void ClearSelection()
     {
-        selectedSpell = -1;
+        selectedSpellType = SpellType.None;
     }
 
     public Spell GetSelectedSpell()
     {
-        if (selectedSpell == -1)
-        {
-            return spell;
-        }
-
-        return fire_ball;
+        return spell_data_provider.GetSpellFromType(selectedSpellType);
     }
 
     public float GetCastRange()
