@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public enum ActionType
 {
@@ -11,7 +12,7 @@ public enum ActionType
 }
 public class PlayerController : MonoBehaviour
 {
-    public Hero hero;
+    [FormerlySerializedAs("hero")] public HeroData heroData;
 
     public ActionType current_action = ActionType.None;
     
@@ -27,12 +28,12 @@ public class PlayerController : MonoBehaviour
     {
         destination = movementController.transform.position;
         
-        spellController.SetHero(hero);
+        spellController.SetHero(heroData);
     }
 
     void Start()
     {
-        movementController.SetMovementSpeed(hero.speed);
+        movementController.SetMovementSpeed(heroData.speed);
 
         PlayerEvents.OnGroundClick.AddListener(MoveToDestination);
         PlayerEvents.OnEnemyClick.AddListener(SetEnemyTarget);
