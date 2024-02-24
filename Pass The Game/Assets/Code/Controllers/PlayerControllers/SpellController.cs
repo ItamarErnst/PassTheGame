@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class SpellController : MonoBehaviour
 {
-    private Hero hero;
+    private HeroData heroData;
     private SpellDataProvider spell_data_provider;
     
     public SpellType selectedSpellType = SpellType.None;
@@ -18,9 +18,9 @@ public class SpellController : MonoBehaviour
         PlayerEvents.OnSpellSelect.AddListener(SelectSpell);
     }
 
-    public void SetHero(Hero hero)
+    public void SetHero(HeroData heroData)
     {
-        this.hero = hero;
+        this.heroData = heroData;
     }
 
     public void CastSelectedSpell(Vector3 pos)
@@ -33,7 +33,7 @@ public class SpellController : MonoBehaviour
     
     private void SelectSpell(int ix)
     {
-        selectedSpellType = hero.GetSpellType(ix);
+        selectedSpellType = heroData.GetSpellType(ix);
         PlayerEvents.OnSpellSelected.Invoke(GetSelectedSpell());
     }
     

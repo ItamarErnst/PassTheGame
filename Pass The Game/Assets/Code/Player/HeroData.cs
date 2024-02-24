@@ -1,7 +1,7 @@
 ﻿using System;
 
 [Serializable]
-public class Hero
+public class HeroData
 {
     public float speed = 5;
     public float attack_range = 5f;
