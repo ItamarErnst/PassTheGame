@@ -12,7 +12,7 @@ public enum ActionType
 }
 public class PlayerController : MonoBehaviour
 {
-    [FormerlySerializedAs("hero")] public HeroData heroData;
+    public HeroData heroData;
 
     public ActionType current_action = ActionType.None;
     
@@ -59,7 +59,7 @@ public class PlayerController : MonoBehaviour
             resourceManager.RemoveMana(spellController.GetSelectedSpell().mana);
             spellController.CastSelectedSpell(destination);
         }
-        else if (current_action == ActionType.AutoAttack && distanceToDestination <= attackController.GetAttackRange())
+        else if (current_action == ActionType.AutoAttack && distanceToDestination <= heroData.attack_range)
         {
             movementController.StopMoving();
             movementController.Rotate(destination);
