@@ -1096,7 +1096,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed8bc3d1c7c62204fa4ddd8140f02b07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movement_controller: {fileID: 0}
+  movement_controller: {fileID: 866187464}
   patrol_list:
   - {fileID: 1091743155}
   - {fileID: 801871627}
@@ -2293,6 +2293,7 @@ MonoBehaviour:
   camera_holder: {fileID: 1524757972}
   edgeScrollingSpeed: 10
   edgeScrollingThreshold: 125
+  breakEdgeScrollingThreshold: 50
 --- !u!4 &1049177363
 Transform:
   m_ObjectHideFlags: 0
